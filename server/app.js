@@ -8,7 +8,7 @@ io.on('connection', socket => {
 
   socket.on('userJoined', (data, callback) => {
     if (!data.name || !data.room) {
-      return callback({ valid: false, text: 'Данные не верные' })
+      return callback({ valid: false, text: 'Данные не верны' })
     }
 
     socket.join(data.room)
