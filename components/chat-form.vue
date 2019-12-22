@@ -23,16 +23,18 @@
     },
     methods: {
       send () {
-        this.$socket.emit('createMessage', {
-          text: this.text,
-          id: this.user.id
-        }, (data) => {
-          if (data.valid) {
-            this.text = ''
-          } else {
-            console.error(data.text)
-          }
-        })
+        if (this.text) {
+          this.$socket.emit('createMessage', {
+            text: this.text,
+            id: this.user.id
+          }, (data) => {
+            if (data.valid) {
+              this.text = ''
+            } else {
+              console.error(data.text)
+            }
+          })
+        }
       }
     }
   }

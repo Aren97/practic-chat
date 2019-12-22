@@ -6,7 +6,7 @@
     </div>
     <div v-else class="user-messages-wrap">
       <v-card :class="['user-message pa-2 mx-2', { owner, 'primary': !owner }]">
-        <small>
+        <small v-if="name">
           <strong>{{name}}:</strong>
         </small>
         <p class="user-message__text">{{text}}</p>
