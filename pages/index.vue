@@ -36,6 +36,24 @@
         </v-card-text>
       </v-card>
     </v-flex>
+
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      color="primary"
+      right
+      top
+    >
+      {{ message }}
+      <v-btn
+        dark
+        text
+        @click="snackbar = false"
+      >
+        Закрыть
+      </v-btn>
+    </v-snackbar>
+
   </v-layout>
 </template>
 
@@ -61,12 +79,15 @@
       room: '',
       roomRules: [
         v => !!v || 'Введите комнату'
-      ]
+      ],
+      snackbar: false,
+      timeout: 6000,
+      message: ''
     }),
 
     methods: {
       ...mapMutations(['setUser']),
-      submit () {
+      submit() {
         if (this.$refs.form.validate()) {
           const user = {
             name: this.name,
@@ -83,7 +104,21 @@
             }
           })
         }
+      },
+      showSnackbar (text) {
+        this.message = text
+        this.snackbar = true
       }
     },
+    mounted() {
+      const { message } = this.$route.query
+
+      if (message === 'noUser') {
+        this.showSnackbar('Введите данные и заходите в комнату')
+      }
+      if (message === 'leftChat') {
+        this.showSnackbar('Вы вышли из чата')
+      }
+    }
   }
 </script>

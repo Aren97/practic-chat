@@ -1,7 +1,7 @@
 <template>
-  <div class="message-wrap">
+  <div class="message-wrap mb-3">
     <div v-if="name === 'admin'" class="system-messages mb-2">
-      <p class="system-message__text text-center mb-2">{{text}}</p>
+      <p class="system-message__text text-center">{{text}}</p>
       <v-divider />
     </div>
     <div v-else class="user-messages-wrap">

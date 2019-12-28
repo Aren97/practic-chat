@@ -13,7 +13,3 @@
     name: "empty"
   }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="chat-wrap">
-    <div class="chat-list pa-4">
+    <div class="chat-list pa-4" ref="chat">
       <message
         v-for="(m, index) in messages"
         :key="m.text + index"
@@ -33,6 +33,13 @@
     },
     computed: {
       ...mapState(['user', 'messages'])
+    },
+    watch: {
+      messages () {
+        setTimeout(() => {
+          this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight
+        }, 0)
+      }
     }
   }
 </script>
@@ -42,10 +49,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: calc(100vh - 56px);
   }
   .chat-list {
     flex: 1 1 auto;
+    overflow-y: auto;
   }
   .chat-footer {
     flex-shrink: 0;
