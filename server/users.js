@@ -15,13 +15,13 @@ class Users {
     const user = this.get(id)
 
     if (user) {
-      this.users.filter(user => user.id !== id)
+      this.users = this.users.filter(u => u.id !== id)
     }
 
     return user
   }
 
-  getByRoom () {
+  getByRoom (room) {
     return this.users.filter(user => user.room === room)
   }
 }

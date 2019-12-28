@@ -22,6 +22,9 @@ io.on('connection', socket => {
     })
 
     callback({ valid: true, userId: socket.id })
+
+    io.to(data.room).emit('updateUsers', users.getByRoom(data.room))
+
     socket.emit('newMessage', m('admin', `Добро пожаловать ${data.name}`))
     socket.broadcast
       .to(data.room)
@@ -40,6 +43,26 @@ io.on('connection', socket => {
     }
 
     return callback({ valid: true, text: 'Сообщение отправлено' })
+  })
+
+  socket.on('userLeft', (id, callback) => {
+    const user = users.remove(id)
+
+    if (user) {
+      io.to(user.room).emit('updateUsers', users.getByRoom(user.room))
+      io.to(user.room).emit('newMessage', m('admin', `Пользователь ${user.name} вышел`))
+    }
+
+    callback()
+  })
+
+  socket.on('disconnect', () => {
+    const user = users.remove(socket.id)
+
+    if (user) {
+      io.to(user.room).emit('updateUsers', users.getByRoom(user.room))
+      io.to(user.room).emit('newMessage', m('admin', `Пользователь ${user.name} вышел`))
+    }
   })
 })
 

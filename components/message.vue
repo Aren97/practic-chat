@@ -41,6 +41,9 @@
     align-self: flex-start;
     max-width: 80%;
   }
+  .user-message__text {
+    margin-bottom: 0;
+  }
   .owner {
     align-self: flex-end;
   }

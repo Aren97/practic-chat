@@ -2,8 +2,8 @@
   <div class="chat-wrap">
     <div class="chat-list pa-4">
       <message
-        v-for="m in messages"
-        :key="m.text"
+        v-for="(m, index) in messages"
+        :key="m.text + index"
         :name="m.name"
         :text="m.text"
         :owner="m.id === user.id"
